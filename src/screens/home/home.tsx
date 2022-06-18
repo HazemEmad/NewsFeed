@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';
+import {Container, Text} from '../../components';
 
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -11,10 +11,10 @@ export type HomeScreenProps = NativeStackScreenProps<
 export const Home: React.FC<HomeScreenProps> = props => {
   const {navigation} = props;
   return (
-    <View style={{flex: 1}}>
+    <Container>
       <Text onPress={() => navigation.navigate('NewsDetails')}>
         News details
       </Text>
-    </View>
+    </Container>
   );
 };

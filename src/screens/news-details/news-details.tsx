@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';
+import {Container, Text} from '../../components';
 
 export type NewsDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -10,8 +10,8 @@ export type NewsDetailsScreenProps = NativeStackScreenProps<
 
 export const NewsDetails: React.FC<NewsDetailsScreenProps> = props => {
   return (
-    <View style={{flex: 1}}>
+    <Container>
       <Text>News details Screen</Text>
-    </View>
+    </Container>
   );
 };

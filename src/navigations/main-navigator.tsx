@@ -1,16 +1,16 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {MyTabs} from './bottom-tab-navigator';
-import {useColorScheme} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {DarkModeContext, DarkModeProviderProps} from '../context';
 
 export const MainNavigator = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: darkMode ? Colors.darker : Colors.lighter,
   };
   return (
     <NavigationContainer>
