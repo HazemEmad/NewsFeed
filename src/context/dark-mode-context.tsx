@@ -1,5 +1,6 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {useColorScheme} from 'react-native';
+import { Theme_asyncKey } from '../constants/asyncStorage-keys';
 import {getData, storeData} from '../utils';
 
 export type DarkModeProviderProps = {
@@ -18,13 +19,13 @@ const DarkModeProvider = (props: any) => {
   const [darkMode, setDarkMode] = useState(isDarkMode);
 
   useEffect(() => {
-    getData('@darkTheme').then(persistValue => {
+    getData(Theme_asyncKey).then(persistValue => {
       if (persistValue != null) setDarkMode(persistValue);
     });
   }, []);
 
   useEffect(() => {
-    storeData(darkMode, '@darkTheme');
+    storeData(darkMode, Theme_asyncKey);
   }, [darkMode]);
 
   const toggleDarkMode = () => {

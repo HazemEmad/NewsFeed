@@ -2,6 +2,10 @@
     "helloText":"hello",
     "LANGUAGE":"Sprache auf Deutsch ändern",
     "REGULAR_THEME":"Change to Regular mode",
-    "DARK_THEME":"Change to Dark mode"
+    "DARK_THEME":"Change to Dark mode",
+    "HOME":"Home",
+    "SETTINGS":"Setting",
+    "NEWS_DETAILS":"News Details"
+
 
 }

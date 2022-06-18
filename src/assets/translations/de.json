@@ -2,5 +2,8 @@
     "helloText":"hallo",
     "LANGUAGE":"Change Language to English",
     "REGULAR_THEME":"Wechseln Sie in den regulären Modus",
-    "DARK_THEME":"Wechseln Sie in den dunklen Modus"
+    "DARK_THEME":"Wechseln Sie in den dunklen Modus",
+    "HOME":"Heim",
+    "SETTINGS":"Einstellung",
+    "NEWS_DETAILS":"Nachrichtendetails"
 }
