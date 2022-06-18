@@ -30,7 +30,6 @@ const DarkModeProvider = (props: any) => {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
-  console.log('===>>', darkMode);
 
   return (
     <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>

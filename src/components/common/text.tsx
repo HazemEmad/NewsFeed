@@ -1,5 +1,7 @@
 import React, {useContext} from 'react';
 import {StyleProp, Text as NativeText, TextStyle} from 'react-native';
+import * as RNLocalize from 'react-native-localize';
+
 import {dictionaryList} from '../../assets';
 import {colors} from '../../constants';
 import {
@@ -30,6 +32,7 @@ type FontWeight =
 export const Text: React.FC<TextProps> = props => {
   const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
   const {language} = useContext<LanguageProviderProps>(LanguageContext);
+  const localLang = RNLocalize.getLocales()[0].languageCode;
 
   let fontWeight: FontWeight = 'normal';
   switch (props.textType) {
@@ -45,14 +48,17 @@ export const Text: React.FC<TextProps> = props => {
     default:
       break;
   }
-
+  const rtlOrltr =
+    (language == 'en' && localLang == 'en') ||
+    (language == 'ar' && localLang == 'ar');
+    
   return (
     <NativeText
       {...props}
       style={{
         fontWeight: fontWeight,
         color: darkMode ? colors.white : colors.black,
-        textAlign: language == 'en' ? 'left' : 'right',
+        textAlign: rtlOrltr ? 'left' : 'right',
         ...props.style,
       }}>
       {props.translated
