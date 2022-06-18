@@ -15,9 +15,11 @@ const LanguageContext = createContext<LanguageProviderProps>(initValue);
 
 const LanguageProvider = (props: any) => {
   const localLang = RNLocalize.getLocales()[0].languageCode;
-  const defaultVal = localLang == 'en' || localLang == 'ar' ? localLang : 'en';
+  console.log('======>', localLang);
+
+  const defaultVal = localLang == 'en' || localLang == 'de' ? localLang : 'en';
   const [language, setLanguage] = useState(defaultVal);
-  
+
   useEffect(() => {
     getData('@lang').then(persistValue => {
       if (persistValue) setLanguage(persistValue);
@@ -30,7 +32,7 @@ const LanguageProvider = (props: any) => {
   }, [language]);
 
   const toggleLanguage = () => {
-    setLanguage(language == 'en' ? 'ar' : 'en');
+    setLanguage(language == 'en' ? 'de' : 'en');
   };
 
   return (
