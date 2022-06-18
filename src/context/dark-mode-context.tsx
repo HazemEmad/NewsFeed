@@ -1,20 +1,31 @@
-import React, {createContext, useState} from 'react';
-import {useColorScheme, View} from 'react-native';
+import React, {createContext, useEffect, useState} from 'react';
+import {useColorScheme} from 'react-native';
+import {getData, storeData} from '../utils';
 
 export type DarkModeProviderProps = {
   darkMode: boolean;
   toggleDarkMode: () => void;
 };
-const isDarkMode = useColorScheme() === 'dark';
 
 const initValue: DarkModeProviderProps = {
-  darkMode: isDarkMode,
+  darkMode: false,
   toggleDarkMode: () => {},
 };
 const DarkModeContext = createContext<DarkModeProviderProps>(initValue);
 
 const DarkModeProvider = (props: any) => {
+  const isDarkMode = useColorScheme() === 'dark';
   const [darkMode, setDarkMode] = useState(isDarkMode);
+
+  useEffect(() => {
+    getData('@darkTheme').then(persistValue => {
+      if (persistValue) setDarkMode(persistValue);
+    });
+  }, []);
+
+  useEffect(() => {
+    storeData(darkMode, '@darkTheme');
+  }, [darkMode]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
