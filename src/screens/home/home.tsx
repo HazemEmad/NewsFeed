@@ -12,8 +12,8 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const {navigation} = props;
   return (
     <Container>
-      <Text onPress={() => navigation.navigate('NewsDetails')}>
-        News details
+      <Text onPress={() => navigation.navigate('NewsDetails')} translated>
+        helloText
       </Text>
     </Container>
   );

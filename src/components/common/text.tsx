@@ -1,10 +1,18 @@
 import React, {useContext} from 'react';
 import {StyleProp, Text as NativeText, TextStyle} from 'react-native';
+import {dictionaryList} from '../../assets';
 import {colors} from '../../constants';
-import {DarkModeContext, DarkModeProviderProps} from '../../context';
+import {
+  DarkModeContext,
+  DarkModeProviderProps,
+  LanguageContext,
+  LanguageProviderProps,
+} from '../../context';
+
 export type TextProps = {
   style: TextStyle;
   textType?: 'regular' | 'bold' | 'light';
+  translated?: boolean;
 };
 type FontWeight =
   | 'normal'
@@ -21,6 +29,8 @@ type FontWeight =
 
 export const Text: React.FC<TextProps> = props => {
   const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
+  const {language} = useContext<LanguageProviderProps>(LanguageContext);
+
   let fontWeight: FontWeight = 'normal';
   switch (props.textType) {
     case 'regular':
@@ -35,15 +45,19 @@ export const Text: React.FC<TextProps> = props => {
     default:
       break;
   }
+
   return (
     <NativeText
       {...props}
       style={{
         fontWeight: fontWeight,
         color: darkMode ? colors.white : colors.black,
+        textAlign: language == 'en' ? 'left' : 'right',
         ...props.style,
       }}>
-      {props.children}
+      {props.translated
+        ? dictionaryList[language][props.children]
+        : props.children}
     </NativeText>
   );
 };

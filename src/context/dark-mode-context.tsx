@@ -19,7 +19,7 @@ const DarkModeProvider = (props: any) => {
 
   useEffect(() => {
     getData('@darkTheme').then(persistValue => {
-      if (persistValue) setDarkMode(persistValue);
+      if (persistValue != null) setDarkMode(persistValue);
     });
   }, []);
 
@@ -30,6 +30,7 @@ const DarkModeProvider = (props: any) => {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+  console.log('===>>', darkMode);
 
   return (
     <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>

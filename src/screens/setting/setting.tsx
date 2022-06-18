@@ -3,7 +3,12 @@ import {ScrollView, TouchableOpacity, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootTapParamList} from '../../navigations';
 import {styles} from './style';
-import {DarkModeContext, DarkModeProviderProps} from '../../context';
+import {
+  DarkModeContext,
+  DarkModeProviderProps,
+  LanguageContext,
+  LanguageProviderProps,
+} from '../../context';
 import {Container, Text} from '../../components';
 
 export type SettingScreenProps = NativeStackScreenProps<
@@ -17,18 +22,19 @@ type ItemList = {
 export const Setting: React.FC<SettingScreenProps> = props => {
   const {darkMode, toggleDarkMode} =
     useContext<DarkModeProviderProps>(DarkModeContext);
+  const {toggleLanguage} = useContext<LanguageProviderProps>(LanguageContext);
 
-  const darkModeOptionText = darkMode
-    ? 'Change to Regular mode'
-    : 'Change to Dark mode';
+  const darkModeOptionText = darkMode ? 'REGULAR_THEME' : 'DARK_THEME';
 
   const items: ItemList[] = [
     {name: darkModeOptionText, action: toggleDarkMode},
-    {name: 'Change language to English', action: () => {}},
+    {name: 'LANGUAGE', action: toggleLanguage},
   ];
   const renderSettingItem = ({name, action}: ItemList) => (
     <TouchableOpacity onPress={action} key={name} style={styles.itemConainer}>
-      <Text style={styles.itemText}>{name}</Text>
+      <Text style={styles.itemText} translated>
+        {name}
+      </Text>
     </TouchableOpacity>
   );
   return (

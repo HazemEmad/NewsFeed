@@ -1,11 +1,13 @@
 import React from 'react';
-import {DarkModeProvider} from './src/context';
+import {DarkModeProvider, LanguageProvider} from './src/context';
 import {MainNavigator} from './src/navigations';
 
 const App = () => {
   return (
     <DarkModeProvider>
-      <MainNavigator />
+      <LanguageProvider>
+        <MainNavigator />
+      </LanguageProvider>
     </DarkModeProvider>
   );
 };
