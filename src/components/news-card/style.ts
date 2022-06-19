@@ -1,10 +1,9 @@
-import {Platform, StyleSheet, ViewStyle} from 'react-native';
-import {colors} from '../../constants';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 7,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   title: {
     fontSize: 17,

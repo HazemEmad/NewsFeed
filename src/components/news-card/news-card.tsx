@@ -3,7 +3,7 @@ import {useContext} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {colors} from '../../constants';
 import {DarkModeContext, DarkModeProviderProps} from '../../context';
-import {Text} from '../common';
+import {CustomImage, Text} from '../common';
 import {styles} from './style';
 
 export type NewsCardProps = {
@@ -28,7 +28,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({
       <Text textType="bold" style={styles.title}>
         {title}
       </Text>
-      <Image source={{uri: imageUrl}} style={styles.image} />
+      <CustomImage source={{uri: imageUrl}} style={styles.image} />
     </TouchableOpacity>
   );
 };
