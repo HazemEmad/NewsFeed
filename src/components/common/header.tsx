@@ -30,7 +30,11 @@ export const Header: React.FC<HeaderProps> = ({props, title}) => {
       }}>
       {canGoBack && (
         <TouchableOpacity onPress={navigation.goBack} style={styles.backIcon}>
-          <Icon name={'arrow-left'} size={27} color={colors.black} />
+          <Icon
+            name={'arrow-left'}
+            size={27}
+            color={darkMode ? colors.white : colors.black}
+          />
         </TouchableOpacity>
       )}
       <Text translated textType={'bold'} style={styles.text}>

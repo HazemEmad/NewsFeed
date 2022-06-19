@@ -5,5 +5,6 @@
     "DARK_THEME":"Wechseln Sie in den dunklen Modus",
     "HOME":"Heim",
     "SETTINGS":"Einstellung",
-    "NEWS_DETAILS":"Nachrichtendetails"
+    "NEWS_DETAILS":"Nachrichtendetails",
+    "EMPTY_DATA":"Keine Nachrichten gefunden"
 }

@@ -4,6 +4,7 @@ import {colors} from '../../constants';
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 7,
+    marginBottom: 10,
   },
   title: {
     fontSize: 17,

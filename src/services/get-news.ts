@@ -37,7 +37,7 @@ export async function getNews<NewsProps>(
       `${BASE_URL_NEWS_API}?apiKey=${params.apiKey}&q=${params.q}&page=${params.page}&language=${params.language}&domains=${params.domains}`,
     )
     .then((Response: AxiosResponse | any) => {
-      console.log('Log Response from getNews API', Response);
+      //console.log('Log Response from getNews API', Response);
       return Response.data;
     })
     .catch(error => {

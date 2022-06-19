@@ -5,7 +5,6 @@
     "DARK_THEME":"Change to Dark mode",
     "HOME":"Home",
     "SETTINGS":"Setting",
-    "NEWS_DETAILS":"News Details"
-
-
+    "NEWS_DETAILS":"News Details",
+    "EMPTY_DATA":"No News Found"
 }
