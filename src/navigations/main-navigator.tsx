@@ -3,14 +3,14 @@ import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {MyTabs} from './bottom-tab-navigator';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {DarkModeContext, DarkModeProviderProps} from '../context';
+import {colors} from '../constants';
 
 export const MainNavigator = () => {
   const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
 
   const backgroundStyle = {
-    backgroundColor: darkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: darkMode ? colors.blackMode : colors.whiteMode,
   };
   return (
     <NavigationContainer>

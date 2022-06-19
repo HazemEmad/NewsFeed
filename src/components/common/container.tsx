@@ -6,7 +6,7 @@ import {DarkModeContext, DarkModeProviderProps} from '../../context';
 export const Container: React.FC = props => {
   const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
   const style = {
-    backgroundColor: darkMode ? colors.black : colors.white,
+    backgroundColor: darkMode ? colors.blackMode : colors.whiteMode,
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 15,

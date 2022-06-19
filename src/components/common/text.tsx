@@ -53,7 +53,7 @@ export const Text: React.FC<TextProps> = props => {
       {...props}
       style={{
         fontWeight: fontWeight,
-        color: darkMode ? colors.white : colors.black,
+        color: darkMode ? colors.whiteMode : colors.blackMode,
         ...props.style,
       }}>
       {props.translated

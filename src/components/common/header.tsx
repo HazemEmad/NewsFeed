@@ -1,6 +1,13 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import {useContext} from 'react';
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {colors} from '../../constants';
+import {DarkModeContext, DarkModeProviderProps} from '../../context';
 import {Icon} from './icon';
 import {Text} from './text';
 
@@ -12,8 +19,15 @@ export type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({props, title}) => {
   const {back, navigation} = props;
   const canGoBack = back;
+  const {darkMode} = useContext<DarkModeProviderProps>(DarkModeContext);
+
   return (
-    <SafeAreaView {...props} style={styles.container}>
+    <SafeAreaView
+      {...props}
+      style={{
+        ...styles.container,
+        backgroundColor: darkMode ? colors.black : colors.white,
+      }}>
       {canGoBack && (
         <TouchableOpacity onPress={navigation.goBack} style={styles.backIcon}>
           <Icon name={'arrow-left'} size={27} color={colors.black} />
@@ -27,13 +41,13 @@ export const Header: React.FC<HeaderProps> = ({props, title}) => {
 };
 const styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: Platform.OS == 'ios' ? 80 : 55,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
-  text: {color: colors.black, textAlign: 'center', fontSize: 18, bottom: 10},
+  text: {textAlign: 'center', fontSize: 18, bottom: 10},
   backIcon: {
     position: 'absolute',
     bottom: 5,

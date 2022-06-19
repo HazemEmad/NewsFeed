@@ -1,7 +1,7 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';
-import {Container, Text} from '../../components';
+import {Container, NewsCard, Text} from '../../components';
 import {useEffect} from 'react';
 import {getNews, NewsProps} from '../../services';
 
@@ -19,9 +19,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const {navigation} = props;
   return (
     <Container>
-      <Text onPress={() => navigation.navigate('NewsDetails')} translated>
-        helloText
-      </Text>
+      <NewsCard title="hazem" imageUrl="https://picsum.photos/200/300" />
     </Container>
   );
 };
