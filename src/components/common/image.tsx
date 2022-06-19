@@ -15,7 +15,7 @@ export const CustomImage: React.FC<CustomImageProps> = ({
   source,
   resizeMode,
 }) => {
-  const loading = source != undefined && source?.uri != '';
+  const loading = source != undefined && source?.uri;
 
   const [loadImage, setLoadImage] = useState(loading);
   const [error, setError] = useState(false);
@@ -29,7 +29,7 @@ export const CustomImage: React.FC<CustomImageProps> = ({
   const resizeM = resizeMode ? resizeMode : FastImage.resizeMode.cover;
 
   useEffect(() => {
-    if (source?.uri != undefined) checkImageURL(source.uri);
+    checkImageURL(source.uri);
   }, []);
 
   const checkImageURL = (URL: string) => {

@@ -4,4 +4,5 @@ export const colors = {
   blackMode: '#212121',
   whiteMode: '#f5f5f5',
   shadow: '#979797',
+  url: '#6A6AE4',
 };

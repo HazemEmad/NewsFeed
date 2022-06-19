@@ -6,5 +6,6 @@
     "HOME":"Home",
     "SETTINGS":"Setting",
     "NEWS_DETAILS":"News Details",
-    "EMPTY_DATA":"No News Found"
+    "EMPTY_DATA":"No News Found",
+    "BY":"By"
 }
