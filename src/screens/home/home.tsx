@@ -2,7 +2,8 @@ import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';
 import {Container, Text} from '../../components';
-import {API_KEY} from '@env';
+import {useEffect} from 'react';
+import {getNews, NewsProps} from '../../services';
 
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -10,8 +11,11 @@ export type HomeScreenProps = NativeStackScreenProps<
 >;
 
 export const Home: React.FC<HomeScreenProps> = props => {
-  console.log(API_KEY);
-
+  useEffect(() => {
+    /* getNews<NewsProps>(1).then(res => {
+      console.log(res);
+    }); */
+  }, []);
   const {navigation} = props;
   return (
     <Container>

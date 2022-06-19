@@ -10,7 +10,6 @@ export type HeaderProps = {
 };
 
 export const Header: React.FC<HeaderProps> = ({props, title}) => {
-  console.log(props);
   const {back, navigation} = props;
   const canGoBack = back;
   return (
