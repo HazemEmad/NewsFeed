@@ -8,6 +8,8 @@ import {Container, NewsCard, SearchCard, Text} from '../../components';
 import {Articles, getNews, NewsProps} from '../../services';
 import {useState} from 'react';
 import {styles} from './style';
+import {AxiosError, AxiosResponse} from 'axios';
+import {colors} from '../../constants';
 
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -20,21 +22,27 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const [loading, setLoading] = useState<boolean>(true);
   const [currPage, setCurrPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>('');
-  const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [error, setError] = useState<string>('');
+  const totalPages = 5; //Developer accounts are limited to a max of 100 results
   const {navigation} = props;
 
   useEffect(() => {
-    getNewsAPI(news);
+    getNewsAPI(currPage == 1 ? [] : news);
   }, [currPage]);
 
   const getNewsAPI = (oldNews: Articles[]) => {
-    getNews<NewsProps>(currPage, searchText).then(res => {
-      setNews(oldNews.concat(res.articles));
-      setRefreshing(false);
-      setLoading(false);
-      if (!totalPages)
-        setTotalPages(Math.round(res.totalResults / res.articles.length));
-    });
+    getNews<NewsProps>(currPage, searchText)
+      .then((res: AxiosResponse) => {
+        setNews([...oldNews, ...res.data.articles]);
+        setError('');
+        endLoadingState();
+      })
+      .catch((e: AxiosError) => {
+        if (!oldNews.length) setNews([]);
+        if (e?.response?.data) setError(e.response.data.message);
+        else setError('NETWORK_ERROR');
+        endLoadingState();
+      });
   };
 
   const renderItem = ({item}) => {
@@ -49,13 +57,22 @@ export const Home: React.FC<HomeScreenProps> = props => {
 
   const renderFooter = () => {
     if (currPage < totalPages && !refreshing && news.length != 0)
-      return <ActivityIndicator />;
+      return error == '' ? (
+        <ActivityIndicator />
+      ) : (
+        <Text textType="bold" translated style={styles.errorColor}>
+          {error}
+        </Text>
+      );
     return null;
   };
 
   const renderEmpty = () => (
-    <Text textType="bold" translated style={styles.emptyText}>
-      EMPTY_DATA
+    <Text
+      textType="bold"
+      translated
+      style={{...styles.emptyText, ...(error != '' && {color: colors.red})}}>
+      {error == '' ? 'EMPTY_DATA' : error}
     </Text>
   );
   const keyExtractor = (item, index) => {
@@ -63,7 +80,12 @@ export const Home: React.FC<HomeScreenProps> = props => {
   };
 
   const onEndReached = () => {
-    setCurrPage(currPage + 1);
+    if (currPage + 1 <= totalPages) setCurrPage(currPage + 1);
+  };
+
+  const endLoadingState = () => {
+    setRefreshing(false);
+    setLoading(false);
   };
 
   const onRefresh = () => {

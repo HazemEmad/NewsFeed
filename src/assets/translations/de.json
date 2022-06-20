@@ -8,6 +8,6 @@
     "NEWS_DETAILS":"Nachrichtendetails",
     "EMPTY_DATA":"Keine Nachrichten gefunden",
     "BY":"Durch",
-    "SEARCH_PLACEHOLDER":"Suchen Sie, was Sie brauchen ..."
-
+    "SEARCH_PLACEHOLDER":"Suchen Sie, was Sie brauchen ...",
+    "NETWORK_ERROR":"Bitte überprüfen Sie Ihr Netzwerk und versuchen Sie es erneut"
 }

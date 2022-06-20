@@ -8,5 +8,7 @@
     "NEWS_DETAILS":"News Details",
     "EMPTY_DATA":"No News Found",
     "BY":"By",
-    "SEARCH_PLACEHOLDER":"Search what do you need ..."
+    "SEARCH_PLACEHOLDER":"Search what do you need ...",
+    "NETWORK_ERROR":"Please Check your Network and try again."
+
 }

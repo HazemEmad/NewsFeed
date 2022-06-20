@@ -25,7 +25,6 @@ export const NewsDetails: React.FC<NewsDetailsScreenProps> = props => {
   const date = new Date(publishedAt);
   const formatDate = date.toDateString() + ' | ' + date.toLocaleTimeString();
   const onOpenLink = () => Linking.openURL(url);
-  console.log(urlToImage);
 
   return (
     <View style={{flex: 1}}>

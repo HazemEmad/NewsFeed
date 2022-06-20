@@ -23,7 +23,7 @@ export interface NewsProps {
 export async function getNews<NewsProps>(
   page: number,
   q: string = '',
-): Promise<NewsProps> {
+): Promise<NewsProps | any> {
   const language = await getData(Lang_asyncKey);
   const params = {
     apiKey: API_KEY,
@@ -32,15 +32,14 @@ export async function getNews<NewsProps>(
     language,
     domains: ',',
   };
-  return axios
-    .get<NewsProps>(
-      `${BASE_URL_NEWS_API}?apiKey=${params.apiKey}&q=${params.q}&page=${params.page}&language=${params.language}&domains=${params.domains}`,
-    )
-    .then((Response: AxiosResponse | any) => {
-      //console.log('Log Response from getNews API', Response);
-      return Response.data;
+  return axios.get<NewsProps>(
+    `${BASE_URL_NEWS_API}?apiKey=${params.apiKey}&q=${params.q}&page=${params.page}&language=${params.language}&domains=${params.domains}`,
+    {timeout: 2000},
+  );
+  /*  .then((Response: AxiosResponse | any) => {
+      console.log('Log Response from getNews API', Response);
     })
     .catch(error => {
-      console.error(error);
-    });
+      console.log('Log Error from getNews API ', error.response.data.message);
+    }) */
 }
