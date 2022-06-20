@@ -18,15 +18,16 @@ export type HomeScreenProps = NativeStackScreenProps<
 >;
 
 export const Home: React.FC<HomeScreenProps> = props => {
+  const {navigation, route} = props;
   const [news, setNews] = useState<Articles[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [currPage, setCurrPage] = useState<number>(1);
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState<string>(
+    route?.params?.searchString ?? '',
+  );
   const [error, setError] = useState<string>('');
   const [totalPages, setTotalPages] = useState<number>(5); //Developer accounts are limited to a max of 100 results
-
-  const {navigation} = props;
 
   useEffect(() => {
     const subscriber = getNewsAPI(currPage == 1 ? [] : news);
@@ -113,14 +114,12 @@ export const Home: React.FC<HomeScreenProps> = props => {
     onSearch();
   }, 1000);
 
-  console.log(totalPages);
-
   return (
     <Container>
       <SearchCard
         onChangeText={s => {
           setSearchText(s);
-          debouncedSearch();
+          //debouncedSearch();
         }}
         search={searchText}
         onSearch={onSearch}

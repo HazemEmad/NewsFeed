@@ -9,12 +9,14 @@ export type RootStackParamList = {
 };
 const Stack = createStackNavigator<RootStackParamList>();
 
-export const MainStack = () => {
+export const MainStack: React.FC = props => {
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={Home}
+        initialParams={{searchString: props?.route?.params?.news}}
         options={{
           header: props => <Header props={props} title={'HOME'} />,
         }}
