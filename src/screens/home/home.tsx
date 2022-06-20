@@ -24,7 +24,8 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const [currPage, setCurrPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const totalPages = 5; //Developer accounts are limited to a max of 100 results
+  const [totalPages, setTotalPages] = useState<number>(5); //Developer accounts are limited to a max of 100 results
+
   const {navigation} = props;
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const getNewsAPI = async (oldNews: Articles[]) => {
     return getNews<NewsProps>(currPage, searchText)
       .then((res: AxiosResponse) => {
+        handlePages(res.data.totalResults, res.data.articles.length);
         setNews([...oldNews, ...res.data.articles]);
         setError('');
         endLoadingState();
@@ -60,7 +62,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const renderFooter = () => {
     if (currPage < totalPages && !refreshing && news.length != 0)
       return error == '' ? (
-        <ActivityIndicator />
+        loading && <ActivityIndicator />
       ) : (
         <Text textType="bold" translated style={styles.errorColor}>
           {error}
@@ -95,6 +97,11 @@ export const Home: React.FC<HomeScreenProps> = props => {
     if (currPage == 1) getNewsAPI([]);
     else setCurrPage(1);
   };
+  const handlePages = (totalResults: number, articlesLength: number) => {
+    const pages = Math.round(totalResults / articlesLength);
+    if (pages < totalPages) setTotalPages(pages);
+    else setTotalPages(5);
+  };
 
   const onSearch = () => {
     setLoading(true);
@@ -105,6 +112,8 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const debouncedSearch = debounce(() => {
     onSearch();
   }, 1000);
+
+  console.log(totalPages);
 
   return (
     <Container>
