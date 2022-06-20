@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {ScrollView, TouchableOpacity, Platform} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootTapParamList} from '../../navigations';
 import {styles} from './style';

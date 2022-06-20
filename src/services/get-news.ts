@@ -1,7 +1,7 @@
 import {API_KEY} from '@env';
 import {getData} from '../utils';
 import {BASE_URL_NEWS_API, Lang_asyncKey} from '../constants';
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 export interface Articles {
   source: number;

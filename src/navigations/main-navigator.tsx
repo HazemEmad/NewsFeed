@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
 import React, {useContext} from 'react';
+import {ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {MyTabs} from './bottom-tab-navigator';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {MyTabs} from './bottom-tab-navigator';
 import {DarkModeContext, DarkModeProviderProps} from '../context';
 import {colors} from '../constants';
-import {ActivityIndicator} from 'react-native';
 
 export const config = {
   screens: {

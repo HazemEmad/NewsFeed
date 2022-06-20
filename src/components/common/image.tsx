@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Image} from 'react-native';
+import {View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import SkeletonContent from 'react-native-skeleton-content-nonexpo';
 import {IMAGES} from '../../assets';

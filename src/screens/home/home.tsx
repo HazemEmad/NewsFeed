@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect} from 'react';
-import {ActivityIndicator, FlatList, RefreshControl, View} from 'react-native';
+import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';

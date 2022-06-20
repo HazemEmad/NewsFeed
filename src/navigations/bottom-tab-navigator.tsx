@@ -1,9 +1,9 @@
 import React from 'react';
+import {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Setting} from '../screens';
 import {MainStack} from './main-stack';
 import {Header, Icon, Text} from '../components';
-import {useContext} from 'react';
 import {DarkModeContext, DarkModeProviderProps} from '../context';
 import {colors} from '../constants';
 
