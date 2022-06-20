@@ -1,10 +1,11 @@
 import React from 'react';
+import {useEffect} from 'react';
+import {ActivityIndicator, FlatList, RefreshControl, View} from 'react-native';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigations';
-import {Container, NewsCard, Text} from '../../components';
-import {useEffect} from 'react';
+import {Container, NewsCard, SearchCard, Text} from '../../components';
 import {Articles, getNews, NewsProps} from '../../services';
-import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 import {useState} from 'react';
 import {styles} from './style';
 
@@ -18,16 +19,17 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [currPage, setCurrPage] = useState<number>(1);
+  const [searchText, setSearchText] = useState<string>('');
   const [totalPages, setTotalPages] = useState<number | null>(null);
   const {navigation} = props;
 
   useEffect(() => {
-    getNewsAPI();
+    getNewsAPI(news);
   }, [currPage]);
 
-  const getNewsAPI = () => {
-    getNews<NewsProps>(currPage).then(res => {
-      setNews(news.concat(res.articles));
+  const getNewsAPI = (oldNews: Articles[]) => {
+    getNews<NewsProps>(currPage, searchText).then(res => {
+      setNews(oldNews.concat(res.articles));
       setRefreshing(false);
       setLoading(false);
       if (!totalPages)
@@ -66,13 +68,23 @@ export const Home: React.FC<HomeScreenProps> = props => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    setNews([]);
-    if (currPage == 1) getNewsAPI();
+    if (currPage == 1) getNewsAPI([]);
+    else setCurrPage(1);
+  };
+
+  const onSearch = () => {
+    setLoading(true);
+    if (currPage == 1) getNewsAPI([]);
     else setCurrPage(1);
   };
 
   return (
     <Container>
+      <SearchCard
+        onChangeText={s => setSearchText(s)}
+        search={searchText}
+        onSearch={onSearch}
+      />
       {loading && <ActivityIndicator />}
       {!loading && (
         <FlatList

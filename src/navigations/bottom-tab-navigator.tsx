@@ -40,7 +40,11 @@ export const MyTabs = () => {
   });
 
   return (
-    <Tab.Navigator screenOptions={{tabBarLabelPosition: 'beside-icon'}}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelPosition: 'beside-icon',
+        tabBarHideOnKeyboard: true,
+      }}>
       <Tab.Screen name="Main" component={MainStack} options={options('home')} />
       <Tab.Screen
         name="Setting"
