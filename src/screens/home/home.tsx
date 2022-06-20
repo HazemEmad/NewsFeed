@@ -10,6 +10,7 @@ import {useState} from 'react';
 import {styles} from './style';
 import {AxiosError, AxiosResponse} from 'axios';
 import {colors} from '../../constants';
+import {debounce} from 'lodash';
 
 export type HomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -27,11 +28,12 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const {navigation} = props;
 
   useEffect(() => {
-    getNewsAPI(currPage == 1 ? [] : news);
+    const subscriber = getNewsAPI(currPage == 1 ? [] : news);
+    return () => subscriber;
   }, [currPage]);
 
-  const getNewsAPI = (oldNews: Articles[]) => {
-    getNews<NewsProps>(currPage, searchText)
+  const getNewsAPI = async (oldNews: Articles[]) => {
+    return getNews<NewsProps>(currPage, searchText)
       .then((res: AxiosResponse) => {
         setNews([...oldNews, ...res.data.articles]);
         setError('');
@@ -70,9 +72,9 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const renderEmpty = () => (
     <Text
       textType="bold"
-      translated
+      translated={error == 'NETWORK_ERROR' || error == ''}
       style={{...styles.emptyText, ...(error != '' && {color: colors.red})}}>
-      {error == '' ? 'EMPTY_DATA' : error}
+      {error == '' ? 'EMPTY_DATA' : error.toString()}
     </Text>
   );
   const keyExtractor = (item, index) => {
@@ -100,10 +102,18 @@ export const Home: React.FC<HomeScreenProps> = props => {
     else setCurrPage(1);
   };
 
+  const debouncedSearch = debounce(() => {
+    onSearch();
+  }, 500);
+  console.log(news.length, error);
+
   return (
     <Container>
       <SearchCard
-        onChangeText={s => setSearchText(s)}
+        onChangeText={s => {
+          setSearchText(s);
+          debouncedSearch();
+        }}
         search={searchText}
         onSearch={onSearch}
       />

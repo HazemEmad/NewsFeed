@@ -29,11 +29,12 @@ export const CustomImage: React.FC<CustomImageProps> = ({
   const resizeM = resizeMode ? resizeMode : FastImage.resizeMode.cover;
 
   useEffect(() => {
-    checkImageURL(source.uri);
+    const subscriber = checkImageURL(source.uri);
+    return () => subscriber;
   }, []);
 
-  const checkImageURL = (URL: string) => {
-    fetch(URL)
+  const checkImageURL = async (URL: string) => {
+    return fetch(URL)
       .then(res => {
         if (res.status == 200) {
           setError(false);
