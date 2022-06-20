@@ -104,8 +104,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
 
   const debouncedSearch = debounce(() => {
     onSearch();
-  }, 500);
-  console.log(news.length, error);
+  }, 1000);
 
   return (
     <Container>
