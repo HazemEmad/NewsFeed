@@ -30,7 +30,10 @@ export const CustomImage: React.FC<CustomImageProps> = ({
 
   useEffect(() => {
     const subscriber = checkImageURL(source.uri);
-    return () => subscriber;
+    return () => {
+      setError(false);
+      return subscriber;
+    };
   }, []);
 
   const checkImageURL = async (URL: string) => {

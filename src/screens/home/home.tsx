@@ -33,7 +33,14 @@ export const Home: React.FC<HomeScreenProps> = props => {
 
   useEffect(() => {
     const subscriber = getNewsAPI(currPage == 1 ? [] : news);
-    return () => subscriber;
+    return () => {
+      setNews([]);
+      setError('');
+      setBottomLoading(false);
+      setRefreshing(false);
+      setLoading(true);
+      return subscriber;
+    };
   }, [currPage]);
 
   const getNewsAPI = async (oldNews: Articles[], s?: string) => {
@@ -74,7 +81,6 @@ export const Home: React.FC<HomeScreenProps> = props => {
       );
     return null;
   };
-  console.log(bottomLoading);
 
   const renderEmpty = () => (
     <Text
