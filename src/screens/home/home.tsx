@@ -34,8 +34,9 @@ export const Home: React.FC<HomeScreenProps> = props => {
     return () => subscriber;
   }, [currPage]);
 
-  const getNewsAPI = async (oldNews: Articles[]) => {
-    return getNews<NewsProps>(currPage, searchText)
+  const getNewsAPI = async (oldNews: Articles[], s?: string) => {
+    const q = s ?? searchText;
+    return getNews<NewsProps>(currPage, q)
       .then((res: AxiosResponse) => {
         handlePages(res.data.totalResults, res.data.articles.length);
         setNews([...oldNews, ...res.data.articles]);
@@ -63,7 +64,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const renderFooter = () => {
     if (currPage < totalPages && !refreshing && news.length != 0)
       return error == '' ? (
-        loading && <ActivityIndicator />
+        <ActivityIndicator />
       ) : (
         <Text textType="bold" translated style={styles.errorColor}>
           {error}
@@ -104,14 +105,14 @@ export const Home: React.FC<HomeScreenProps> = props => {
     else setTotalPages(5);
   };
 
-  const onSearch = () => {
+  const onSearch = (s: string) => {
     setLoading(true);
-    if (currPage == 1) getNewsAPI([]);
+    if (currPage == 1) getNewsAPI([], s);
     else setCurrPage(1);
   };
 
-  const debouncedSearch = debounce(() => {
-    onSearch();
+  const debouncedSearch = debounce((s: string) => {
+    onSearch(s);
   }, 1000);
 
   return (
@@ -119,10 +120,10 @@ export const Home: React.FC<HomeScreenProps> = props => {
       <SearchCard
         onChangeText={s => {
           setSearchText(s);
-          //debouncedSearch();
+          debouncedSearch(s);
         }}
         search={searchText}
-        onSearch={onSearch}
+        onSearch={() => onSearch(searchText)}
       />
       {loading && <ActivityIndicator />}
       {!loading && (

@@ -24,6 +24,7 @@ export async function getNews<NewsProps>(
   page: number,
   q: string = '',
 ): Promise<NewsProps | any> {
+
   const language = await getData(Lang_asyncKey);
   const params = {
     apiKey: API_KEY,
