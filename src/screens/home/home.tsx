@@ -22,6 +22,8 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const [news, setNews] = useState<Articles[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [bottomLoading, setBottomLoading] = useState<boolean>(false);
+
   const [currPage, setCurrPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>(
     route?.params?.searchString ?? '',
@@ -64,7 +66,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
   const renderFooter = () => {
     if (currPage < totalPages && !refreshing && news.length != 0)
       return error == '' ? (
-        <ActivityIndicator />
+        bottomLoading && <ActivityIndicator />
       ) : (
         <Text textType="bold" translated style={styles.errorColor}>
           {error}
@@ -72,6 +74,7 @@ export const Home: React.FC<HomeScreenProps> = props => {
       );
     return null;
   };
+  console.log(bottomLoading);
 
   const renderEmpty = () => (
     <Text
@@ -86,10 +89,12 @@ export const Home: React.FC<HomeScreenProps> = props => {
   };
 
   const onEndReached = () => {
+    setBottomLoading(true);
     if (currPage + 1 <= totalPages) setCurrPage(currPage + 1);
   };
 
   const endLoadingState = () => {
+    setBottomLoading(false);
     setRefreshing(false);
     setLoading(false);
   };
